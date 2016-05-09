@@ -23,6 +23,9 @@ public class Tester1 : MonoBehaviour {
 	{
 		if (Errors != "") {
 			Debug.Log (country + " are " + WIC.Ethnic_groups);
+			Debug.Log ("Population: "+WIC.Population);
+			Debug.Log ("Anthem: " + WIC.AnthemURL);
+			Debug.Log ("Official language: " + WIC.Official_language);
 		} else {
 			Debug.Log ("Error: "+Errors);
 		}

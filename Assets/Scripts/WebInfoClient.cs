@@ -47,8 +47,6 @@ public class WebInfoClient : MonoBehaviour {
 
 
 	#region Components
-		public InputField  inputtext; 
-		public InputField  memo; 
 		public Image flag;
 		public AudioSource AudioAnthem;
 	#endregion
@@ -64,7 +62,7 @@ public class WebInfoClient : MonoBehaviour {
 					Official_language,
 					Flag_URL,
 					Ethnic_groups,
-					Anthem;
+					AnthemURL;
 
 
 
@@ -82,13 +80,12 @@ public class WebInfoClient : MonoBehaviour {
 	/// <summary>
 	/// Cleans the data.
 	/// </summary>
-	void CleanData ()
+	private void CleanData ()
 	{
 		Debug.ClearDeveloperConsole ();
 		Official_language = "";
 		Flag_URL = "";
-		memo.text = "";
-		Anthem = "";
+		AnthemURL = "";
 		Ethnic_groups = "";
 		Population = "";
 		Country = "";
@@ -139,34 +136,6 @@ public class WebInfoClient : MonoBehaviour {
 
 	/// <summary>
 	/// Parse the wikipedia website to obtain the data.
-	/// </summary>
-    public void GetDataWiki()
-    {
-
-		CleanData ();
-
-
-
-		if (inputtext.text != "") {
-			string url = "https://en.wikipedia.org/wiki/" + inputtext.text;
-			
-			memo.text += "url: " + url +"\r\n";
-			Debug.Log (url);
-			
-			WWW www = new WWW (url);
-			
-			StartCoroutine (WaitForRequest (www));
-
-		} else {
-			memo.text = "Missing the name of the country!";
-		}
-
-
-    }
-
-	/// <summary>
-	/// Gets the data wiki.
-	/// </summary>
 	/// <param name="country">Country.</param>
 	public void GetDataWiki(string country)
 	{
@@ -178,7 +147,7 @@ public class WebInfoClient : MonoBehaviour {
 		if (country != "") {
 			string url = "https://en.wikipedia.org/wiki/" + country;
 
-			memo.text += "url: " + url +"\r\n";
+
 			Debug.Log (url);
 
 			WWW www = new WWW (url);
@@ -186,7 +155,6 @@ public class WebInfoClient : MonoBehaviour {
 			StartCoroutine (WaitForRequest (www));
 
 		} else {
-			memo.text = "Missing the name of the country!";
 			Error = "Missing the name of the country!";
 		}
 
@@ -323,6 +291,7 @@ public class WebInfoClient : MonoBehaviour {
 				}
 
 				#endregion
+
 				#region Anthem. There is a .ogg
 					//<td class="anthem"
 					HtmlNode AnthemNodo=tabla.SelectSingleNode("//td[@class='anthem']");
@@ -332,7 +301,7 @@ public class WebInfoClient : MonoBehaviour {
 					if (AnthemNodo!=null){
 						AnthemNodo=AnthemNodo.SelectSingleNode("//source");
 						if (AnthemNodo!=null){
-							Anthem=AnthemNodo.GetAttributeValue("src","").Replace("//","");
+							AnthemURL=AnthemNodo.GetAttributeValue("src","").Replace("//","");
 						
 						}
 					}
